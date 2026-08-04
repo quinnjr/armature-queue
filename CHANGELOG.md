@@ -9,6 +9,10 @@ Earlier changes are recorded in the workspace [`CHANGELOG.md`](../CHANGELOG.md).
 
 ## [Unreleased]
 
+### Added
+
+- Added the `queue` criterion benchmark (job/config construction, priorities, payload serialization), split out of the root package's `benches/data_benchmarks.rs`. Run it with `cargo bench -p armature-queue --bench queue`. The crate now sets `autobenches = false`, so a new file under `benches/` needs an explicit `[[bench]]` entry.
+
 ### Fixed
 
 - **Breaking:** in-flight jobs are reclaimed. `dequeue` wrote a claim timestamp that nothing ever read back, so a crashed or SIGKILLed worker stranded its job in no queue at all — never retried, never dead-lettered. `WorkerConfig::visibility_timeout` drives a reaper, and pop-and-claim is now one atomic script.
