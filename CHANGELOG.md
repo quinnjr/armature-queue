@@ -18,3 +18,17 @@ Earlier changes are recorded in the workspace [`CHANGELOG.md`](../CHANGELOG.md).
 - **Breaking:** in-flight jobs are reclaimed. `dequeue` wrote a claim timestamp that nothing ever read back, so a crashed or SIGKILLed worker stranded its job in no queue at all — never retried, never dead-lettered. `WorkerConfig::visibility_timeout` drives a reaper, and pop-and-claim is now one atomic script.
 - **Breaking:** jobs scheduled beyond the retention window run. Their body expired before the due time, so promotion silently skipped them and left a permanent entry in the delayed set that inflated `backlog_size()` until `max_size` tripped.
 - `StopOutcome` counts only job-processing tasks; the reaper is cancelled up front so the numbers still describe in-flight jobs.
+
+## [0.4.1] - 2026-08-04
+
+### Fixed
+
+- Requirements on sibling armature crates name a minor instead of `0`. Under
+  Cargo's 0.x rules `version = "0"` matches any release ever made, and edition
+  2024 selects the MSRV-aware resolver, so a consumer declaring an older
+  `rust-version` was handed the oldest version satisfying it — resolving
+  `armature-core = "0"` on Rust 1.89 produced `armature-core 0.2.3` while an
+  explicit `armature-core = "0.8"` elsewhere in the same graph pulled 0.8.2.
+  Two copies of core, and a build failing on symbols the older one lacks. Each
+  0.x minor in this family is a breaking change, so the requirement now names
+  one. No API change.
