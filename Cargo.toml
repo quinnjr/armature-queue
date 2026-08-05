@@ -1,6 +1,6 @@
 [package]
 name = "armature-queue"
-version = "0.4.1"
+version = "0.5.0"
 edition = "2024"
 rust-version = "1.94.1"
 autobenches = false  # Disable auto-discovery, use explicit [[bench]] only
@@ -30,7 +30,7 @@ armature-redis = { version = "0.2" }
 redis = { version = "1.3", features = ["tokio-comp", "connection-manager"] }
 
 # DI integration
-armature-core = { version = "0.8" }
+armature-core = { version = "0.9" }
 
 [dev-dependencies]
 criterion = { version = "0.8", features = ["html_reports"] }
