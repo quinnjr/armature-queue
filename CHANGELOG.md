@@ -9,6 +9,14 @@ Earlier changes are recorded in the workspace [`CHANGELOG.md`](../CHANGELOG.md).
 
 ## [Unreleased]
 
+### Changed
+
+- **Sibling requirements follow the security-hardening release train (breaking).**
+  `armature-core` 0.10 → 0.11, `armature-log` 0.2 → 0.3, `armature-redis` 0.2 → 0.3. Those releases change public APIs and secure-by-default behaviour
+  (see each crate's CHANGELOG); this crate's minor moves with them so a
+  downstream build can't mix it with the previous sibling releases. No code
+  changes in this crate.
+
 ## [0.6.0] - 2026-09-15
 
 ### Changed
